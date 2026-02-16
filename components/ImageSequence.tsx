@@ -14,11 +14,11 @@ type SequenceManifest = {
 };
 
 const SEQUENCE_DEF = [
-    { id: 'image-1', start: 0, end: 0.15 },
-    { id: 'image-5', start: 0.15, end: 0.30 },
-    { id: 'image-7', start: 0.30, end: 0.55 },
-    { id: 'image-8', start: 0.55, end: 0.80 },
-    { id: 'image-3', start: 0.80, end: 1.0 },
+    { id: 'center-to-right', start: 0, end: 0.20 },
+    { id: 'right-to-center', start: 0.20, end: 0.40 },
+    { id: 'center-to-left', start: 0.40, end: 0.60 },
+    { id: 'left-to-center', start: 0.60, end: 0.80 },
+    { id: 'image-7', start: 0.80, end: 1.0 },
 ];
 
 export function ImageSequence() {
@@ -30,12 +30,16 @@ export function ImageSequence() {
     const [manifest, setManifest] = useState<SequenceManifest | null>(null);
     const [images, setImages] = useState<Record<string, HTMLImageElement[]>>({});
 
+
     // Load manifest
     useEffect(() => {
         fetch('/sequences/manifest.json')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
             .then(data => setManifest(data))
-            .catch(err => console.error("Failed to load manifest", err));
+            .catch(err => console.error("Failed to load manifest:", err));
     }, []);
 
     // Preload images (progressive)

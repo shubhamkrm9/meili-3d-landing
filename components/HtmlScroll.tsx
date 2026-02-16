@@ -2,15 +2,17 @@
 'use client';
 
 import { useScroll } from '@react-three/drei';
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useRef, useMemo, createContext } from 'react';
 import { createRoot, Root } from 'react-dom/client';
+
+export const HtmlScrollContext = createContext<HTMLElement | null>(null);
 
 export function HtmlScroll({ children, style, ...props }: { children: React.ReactNode; style?: React.CSSProperties;[key: string]: any }) {
     const scroll = useScroll();
 
-    // Create a persistent container element
+    // Create container
     const container = useMemo(() => {
-        if (typeof document === 'undefined') return null; // SSR safety
+        if (typeof document === 'undefined') return null;
         const div = document.createElement('div');
         Object.assign(div.style, {
             position: 'absolute',
@@ -18,53 +20,71 @@ export function HtmlScroll({ children, style, ...props }: { children: React.Reac
             left: '0',
             width: '100%',
             height: '100%',
-            ...style
+            pointerEvents: 'none',
+            ...style,
         });
-        return div;
-    }, []); // style dependency ignored in memo creation to keep ref stable, but updated in effect
-
-    // Apply styles updates
-    useEffect(() => {
-        if (container && style) {
-            Object.assign(container.style, style);
+        // Override pointerEvents if style has it, or default to auto for interaction
+        if (!style?.pointerEvents) {
+            div.style.pointerEvents = 'auto';
         }
+        return div;
+    }, []);
+
+    // Update style
+    useEffect(() => {
+        if (container && style) Object.assign(container.style, style);
     }, [style, container]);
 
-    // Manage mounting to the scroll container
+    // Append to scroll.el
     useEffect(() => {
         if (!container || !scroll.el) return;
         const target = scroll.el as HTMLElement;
-        target.appendChild(container);
+        target.appendChild(container); // Append container to scrollable element
         return () => {
             if (target.contains(container)) {
                 target.removeChild(container);
             }
-        };
+        }
     }, [scroll.el, container]);
 
-    // Manage React Root
+    // Render using createRoot
     const rootRef = useRef<Root | null>(null);
 
+    // Initial creation and cleanup
     useEffect(() => {
         if (!container) return;
 
+        // Ensure root exists
         if (!rootRef.current) {
             rootRef.current = createRoot(container);
         }
 
-        rootRef.current.render(children);
+        const root = rootRef.current;
 
-    }, [children, container]);
-
-    // Cleanup root on unmount
-    useEffect(() => {
         return () => {
-            if (rootRef.current) {
-                rootRef.current.unmount();
+            // In React 18/19 strict mode, this cleanup runs.
+            // We unmount asynchronously to avoid conflicts if re-mounting happens immediately
+            // or just unmount synchronously. 
+            // Ideally synchronous unmount is safest for cleanup.
+            // However, checking if root exists prevents re-creation errors.
+            // We'll rely on refs.
+            setTimeout(() => {
+                root.unmount();
                 rootRef.current = null;
-            }
+            }, 0);
         };
-    }, []);
+    }, [container]);
+
+    // Update children
+    useLayoutEffect(() => {
+        if (rootRef.current) {
+            rootRef.current.render(
+                <HtmlScrollContext.Provider value={scroll.el}>
+                    {children}
+                </HtmlScrollContext.Provider>
+            );
+        }
+    }, [children, scroll.el]);
 
     return null;
 }

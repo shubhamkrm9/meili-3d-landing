@@ -21,6 +21,9 @@ const config: Config = {
                 display: ['var(--font-inter)', 'sans-serif'],
                 sans: ['var(--font-inter)', 'sans-serif'],
             },
+            animation: {
+                'spin-slow': 'spin 8s linear infinite',
+            },
         },
     },
     plugins: [],
