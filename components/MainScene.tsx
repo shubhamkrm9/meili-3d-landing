@@ -19,8 +19,10 @@ export function MainScene() {
                 </Suspense>
             </Canvas>
 
-            {/* Optional helper to visualize scroll for debugging, remove in prod */}
-            {/* <div className="absolute top-0 left-0 text-white p-4">Scroll to explore</div> */}
+            {/* Debug helper - shows scroll is working */}
+            <div className="absolute top-4 left-4 text-white p-4 bg-black/50 rounded-lg backdrop-blur-sm z-50 pointer-events-none">
+                <p className="text-sm">Scroll to explore ↓</p>
+            </div>
         </div>
     );
 }

@@ -13,12 +13,18 @@ type SequenceManifest = {
     };
 };
 
+// Frame 1: Planet center (0-16.6%)
+// Frame 2: Planet shifts right (16.6-33.3%)
+// Frame 3: Planet center/up (33.3-50%)
+// Frame 4: Planet shifts left (50-66.6%)
+// Frame 5: Planet massive (66.6-83.3%)
+// Frame 6: Red landscape (83.3-100%)
 const SEQUENCE_DEF = [
-    { id: 'center-to-right', start: 0, end: 0.20 },
-    { id: 'right-to-center', start: 0.20, end: 0.40 },
-    { id: 'center-to-left', start: 0.40, end: 0.60 },
-    { id: 'left-to-center', start: 0.60, end: 0.80 },
-    { id: 'image-7', start: 0.80, end: 1.0 },
+    { id: 'center-to-right', start: 0, end: 0.166 },        // Frame 1 → 2
+    { id: 'right-to-center', start: 0.166, end: 0.333 },    // Frame 2 → 3
+    { id: 'center-to-left', start: 0.333, end: 0.50 },      // Frame 3 → 4
+    { id: 'left-to-center', start: 0.50, end: 0.666 },      // Frame 4 → 5
+    { id: 'image-7', start: 0.666, end: 1.0 },              // Frame 5 → 6 (landscape)
 ];
 
 export function ImageSequence() {

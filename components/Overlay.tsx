@@ -1,268 +1,305 @@
-
-
-
 'use client';
 
-import { HtmlScroll, HtmlScrollContext } from './HtmlScroll';
+import { Html } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { useContext } from 'react';
-import {
-    HelpCircle,
-    Lightbulb,
-    Scale,
-    RefreshCw,
-    CheckCircle,
-    Clock,
-    Zap,
-    Shield,
-    Heart
-} from 'lucide-react';
-
-const Section = ({
-    children,
-    align = 'center',
-    opacity = 1
-}: {
-    children: React.ReactNode;
-    align?: 'left' | 'center' | 'right';
-    opacity?: number;
-}) => {
-    const scrollEl = useContext(HtmlScrollContext);
-    const alignmentClasses = {
-        left: 'items-start text-left pl-10 md:pl-20',
-        center: 'items-center text-center',
-        right: 'items-end text-right pr-10 md:pr-20'
-    };
-
-    return (
-        <div className={`h-screen w-full flex flex-col justify-center ${alignmentClasses[align]} p-8`}>
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ root: { current: scrollEl as HTMLElement }, margin: "-20% 0px -20% 0px" }} // Trigger when near center
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`max-w-xl ${align === 'right' ? 'ml-auto' : ''} ${align === 'center' ? 'mx-auto' : ''}`}
-            >
-                {children}
-            </motion.div>
-        </div>
-    );
-};
 
 export function Overlay() {
     return (
-        <HtmlScroll style={{ width: '100%' }}>
+        <Html fullscreen style={{ pointerEvents: 'none' }}>
+            <div style={{ width: '100%', height: '500vh', position: 'relative', pointerEvents: 'auto' }}>
 
-            {/* 1. Hero */}
-            <Section align="center">
-                <div className="pt-24 md:pt-32">
-                    <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                        <span className="text-purple-400 text-sm font-semibold">● AI-Powered Travel Intelligence</span>
-                    </div>
-                    <h1 className="text-5xl md:text-8xl font-display font-bold mb-6 tracking-tighter leading-[0.9]">
-                        Group Travel, <span className="text-purple-500">Perfectly</span> <br />
-                        <span className="text-purple-500">Coordinated</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl text-white/70 font-light max-w-2xl mx-auto leading-relaxed">
-                        An invisible AI that listens to everyone, balances preferences, and adapts in real-time
-                    </p>
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-10">
-                        <button className="px-8 py-3 bg-fuchsia-500 text-white rounded-full font-semibold hover:bg-fuchsia-600 transition-all hover:scale-105 shadow-[0_0_20px_rgba(217,70,239,0.4)]">
-                            Start Planning →
-                        </button>
-                        <button className="px-8 py-3 bg-white/5 border border-white/10 text-white rounded-full font-semibold hover:bg-white/10 transition-all backdrop-blur-md">
-                            See How It Works
-                        </button>
-                    </div>
-                </div>
-            </Section>
-
-            {/* 2. Problem - 4 Grid */}
-            <Section align="center">
-                <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto w-full items-center">
-                    <div className="text-left">
-                        <span className="text-fuchsia-500 font-bold tracking-wider text-sm">THE PROBLEM</span>
-                        <h2 className="text-4xl md:text-6xl font-display font-bold mt-2 mb-6 leading-tight">
-                            Planning group travel <br />
-                            is <span className="text-purple-500">impossible</span>
-                        </h2>
-                        <p className="text-white/60 mb-4">
-                            Meet the Johnsons: a family of six planning their dream vacation to Italy.
-                        </p>
-                        <p className="text-white/60 mb-6">
-                            Grandparents want to visit museums and take it slow. Parents need downtime. Teenagers crave adventure sports. Kids need playgrounds every few hours.
-                        </p>
-                        <div className="p-4 rounded-xl bg-white/5 border-l-2 border-fuchsia-500">
-                            <p className="text-fuchsia-300 italic">
-                                And travel agents? They're manually juggling spreadsheets, trying to satisfy everyone, spending hours on plans that break the moment someone changes their mind.
+                {/* Section 1: The Departure (0-16.6%) - center-to-right */}
+                <div 
+                    className="h-screen w-full flex flex-col justify-center items-center text-center p-8 relative z-10"
+                    style={{ position: 'absolute', top: 0, left: 0, right: 0 }}
+                >
+                    <div className="max-w-3xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.3 }}
+                            className="mb-6"
+                        >
+                            <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tight leading-[0.95] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                                Travel without <br />
+                                <span className="text-purple-400">friction.</span>
+                            </h1>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                            className="mb-10"
+                        >
+                            <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed max-w-2xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                                Meili turns preferences into itineraries. No templates. No guesswork. 
+                                Just intelligent travel that adapts to you.
                             </p>
-                        </div>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.9 }}
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="px-10 py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white rounded-full font-semibold text-lg shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.6)] transition-shadow"
+                            >
+                                Start your journey
+                            </motion.button>
+                        </motion.div>
                     </div>
+                </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* Card 1 */}
-                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-                            <div className="text-3xl mb-3">👴</div>
-                            <h3 className="font-bold text-lg mb-1">Grandparents</h3>
-                            <p className="text-sm text-white/50 mb-3">Want: Historical sites, slow pace</p>
-                            <span className="text-xs text-red-400 bg-red-400/10 px-2 py-1 rounded">⚠ Need rest breaks</span>
-                        </div>
-                        {/* Card 2 */}
-                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-                            <div className="text-3xl mb-3">👨‍👩‍👧‍👦</div>
-                            <h3 className="font-bold text-lg mb-1">Parents</h3>
-                            <p className="text-sm text-white/50 mb-3">Want: Relaxation, balance</p>
-                            <span className="text-xs text-red-400 bg-red-400/10 px-2 py-1 rounded">⚠ Manage everyone</span>
-                        </div>
-                        {/* Card 3 */}
-                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-                            <div className="text-3xl mb-3">🏂</div>
-                            <h3 className="font-bold text-lg mb-1">Teenagers</h3>
-                            <p className="text-sm text-white/50 mb-3">Want: Adventure, activities</p>
-                            <span className="text-xs text-red-400 bg-red-400/10 px-2 py-1 rounded">⚠ Get bored easily</span>
-                        </div>
-                        {/* Card 4 */}
-                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-                            <div className="text-3xl mb-3">👶</div>
-                            <h3 className="font-bold text-lg mb-1">Kids</h3>
-                            <p className="text-sm text-white/50 mb-3">Want: Fun, playgrounds</p>
-                            <span className="text-xs text-red-400 bg-red-400/10 px-2 py-1 rounded">⚠ Short attention</span>
-                        </div>
+                {/* Section 2: The Traveler's Canvas (16.6-33.3%) - right-to-center */}
+                <div 
+                    className="h-screen w-full flex flex-col justify-center items-start text-left pl-10 md:pl-20 p-8 relative z-10"
+                    style={{ position: 'absolute', top: '100vh', left: 0, right: 0 }}
+                >
+                    <div className="max-w-xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="mb-6"
+                        >
+                            <h2 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                                Speak. <br />
+                                <span className="text-fuchsia-400">We listen.</span>
+                            </h2>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                            className="mb-10"
+                        >
+                            <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                                Budget. Group dynamics. Hidden constraints. Tell us in your own words. 
+                                Our AI translates your travel language into a living itinerary.
+                            </p>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.05, x: 5 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="px-8 py-3 bg-white/10 border border-white/20 text-white rounded-full font-semibold backdrop-blur-md hover:bg-white/15 transition-colors"
+                            >
+                                Build your trip
+                            </motion.button>
+                        </motion.div>
+                    </div>
+                </div>
 
-                        <div className="col-span-1 sm:col-span-2 bg-white/5 border border-white/10 rounded-2xl p-6 text-center mt-2">
-                            <h4 className="font-bold mb-2">4 Different Preferences</h4>
-                            <p className="text-sm text-white/50 mb-3">= Endless Compromises</p>
-                            <div className="flex justify-center gap-2">
-                                <span className="w-3 h-3 rounded-full bg-red-500"></span>
-                                <span className="w-3 h-3 rounded-full bg-orange-500"></span>
-                                <span className="w-3 h-3 rounded-full bg-red-400"></span>
+                {/* Section 3: Fluid Adjustments (33.3-50%) - center-to-left */}
+                <div 
+                    className="h-screen w-full flex flex-col justify-center items-center text-center p-8 relative z-10"
+                    style={{ position: 'absolute', top: '200vh', left: 0, right: 0 }}
+                >
+                    <div className="max-w-3xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="mb-4"
+                        >
+                            <div className="inline-block px-6 py-3 bg-white/5 border border-purple-400/30 rounded-2xl backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                                <h2 className="text-3xl md:text-5xl font-display font-bold text-purple-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                                    "Add a beach day."
+                                </h2>
+                            </div>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: 0.5 }}
+                            className="mb-8"
+                        >
+                            <p className="text-2xl md:text-3xl font-semibold text-fuchsia-400 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                                Done. Budget adjusted. Timeline rebalanced.
+                            </p>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                            className="mb-10"
+                        >
+                            <p className="text-lg md:text-xl text-white/90 font-light leading-relaxed max-w-2xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                                Change your mind mid-plan. Meili recalculates in real-time. 
+                                Costs, logistics, connections—all fluid.
+                            </p>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 1.1 }}
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="px-8 py-3 bg-purple-500/20 border border-purple-400/50 text-purple-300 rounded-full font-semibold backdrop-blur-md hover:bg-purple-500/30 transition-colors"
+                            >
+                                See it adapt
+                            </motion.button>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Section 4: The Agent's Command (50-66.6%) - left-to-center */}
+                <div 
+                    className="h-screen w-full flex flex-col justify-center items-end text-right pr-10 md:pr-20 p-8 relative z-10"
+                    style={{ position: 'absolute', top: '300vh', left: 0, right: 0 }}
+                >
+                    <div className="max-w-xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="mb-6"
+                        >
+                            <h2 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                                Control from <br />
+                                <span className="text-purple-400">orbit.</span>
+                            </h2>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                            className="mb-10"
+                        >
+                            <div className="space-y-3 text-lg md:text-xl text-white/90 font-light leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                                <p>Manage multiple groups.</p>
+                                <p>Review AI-generated plans.</p>
+                                <p>Track margins. Approve changes.</p>
+                                <p className="font-normal text-white">
+                                    Your dashboard sees everything before your travelers do.
+                                </p>
+                            </div>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.05, x: -5 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="px-8 py-3 bg-gradient-to-l from-purple-600 to-fuchsia-600 text-white rounded-full font-semibold shadow-lg hover:shadow-purple-500/50 transition-shadow"
+                            >
+                                Access the dashboard
+                            </motion.button>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Section 5: The Arrival (66.6-100%) - image-7 landscape */}
+                <div 
+                    className="h-screen w-full flex flex-col justify-center items-center text-center p-8 relative z-10"
+                    style={{ position: 'absolute', top: '400vh', left: 0, right: 0 }}
+                >
+                    <div className="max-w-4xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="mb-8"
+                        >
+                            <h2 className="text-5xl md:text-8xl font-display font-bold tracking-tight leading-[0.95] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                                When plans <span className="text-red-400">collapse</span>, <br />
+                                we <span className="text-purple-400">reroute.</span>
+                            </h2>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                            className="mb-10"
+                        >
+                            <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed max-w-3xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                                Flight delays. Road closures. Last-minute chaos. Agentic AI monitors, predicts, 
+                                and rebuilds your itinerary in real-time.
+                            </p>
+                        </motion.div>
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="px-10 py-4 bg-red-500/20 border-2 border-red-400/50 text-red-300 rounded-full font-semibold text-lg backdrop-blur-md hover:bg-red-500/30 hover:border-red-400/70 transition-all shadow-[0_0_30px_rgba(248,113,113,0.3)]"
+                            >
+                                Explore crisis AI
+                            </motion.button>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div style={{ position: 'absolute', top: '500vh', left: 0, right: 0 }}>
+                    <footer className="w-full bg-black/40 backdrop-blur-md border-t border-white/10 py-12 px-8">
+                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div>
+                                <h3 className="text-2xl font-bold mb-2">Meili</h3>
+                                <p className="text-white/60 text-sm">Intelligent travel, reimagined.</p>
+                            </div>
+                            
+                            <div>
+                                <ul className="space-y-2 text-sm">
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">For Travelers</a></li>
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">For Agents</a></li>
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">How It Works</a></li>
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">Pricing</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <ul className="space-y-2 text-sm">
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">About Us</a></li>
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">Careers</a></li>
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">Contact</a></li>
+                                    <li><a href="#" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a></li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </Section>
-
-            {/* 3. Solution - AI Coordinator */}
-            <Section align="center">
-                <div className="max-w-4xl mx-auto">
-                    <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-purple-500/20 border border-purple-500/50 backdrop-blur-md">
-                        <span className="text-purple-300 text-sm font-semibold">★ The Turning Point</span>
-                    </div>
-                    <h2 className="text-4xl md:text-7xl font-display font-bold mb-8">
-                        What if an AI could <span className="text-purple-500">coordinate</span> <br />
-                        <span className="text-purple-500">everyone?</span>
-                    </h2>
-                    <p className="text-xl text-white/70 max-w-2xl mx-auto mb-12">
-                        Not a booking engine. Not a recommendation tool. <br />
-                        An invisible coordinator that understands group dynamics.
-                    </p>
-
-                    {/* Visual Hexagon Representation (CSS only for now) */}
-                    <div className="relative w-64 h-64 mx-auto flex items-center justify-center">
-                        <div className="absolute inset-0 bg-purple-500/20 blur-3xl rounded-full"></div>
-                        <div className="w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center shadow-2xl relative z-10">
-                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M17.636 17.636l-.707-.707M12 21v-1M4.364 17.636l.707-.707M3 12h1m-.243-9.757l.707.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        </div>
-                        {/* Orbiting dots */}
-                        <div className="absolute w-full h-full border border-white/10 rounded-full animate-spin-slow"></div>
-                        <div className="absolute top-0 left-1/2 w-4 h-4 bg-gray-500 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-                        <div className="absolute bottom-0 left-1/2 w-4 h-4 bg-gray-500 rounded-full -translate-x-1/2 translate-y-1/2"></div>
-                        <div className="absolute top-1/2 left-0 w-4 h-4 bg-gray-500 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-                        <div className="absolute top-1/2 right-0 w-4 h-4 bg-gray-500 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-                    </div>
-                    <p className="mt-8 text-sm text-white/40 uppercase tracking-widest">One AI. Multiple preferences. Zero compromises.</p>
-                </div>
-            </Section>
-
-            {/* 4. Process - How it works */}
-            <Section align="center">
-                <span className="text-purple-500 font-bold tracking-wider text-sm uppercase mb-4 block">Simple Process</span>
-                <h2 className="text-4xl md:text-6xl font-display font-bold mb-4">
-                    How <span className="text-fuchsia-500">Intelligence</span> Works
-                </h2>
-                <p className="text-white/60 mb-12">Four steps. Zero manual coordination. Infinite possibilities.</p>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mx-auto w-full px-4">
-                    {[
-                        { step: "01", title: "Listen", desc: "Collects preferences from every traveler in the group", Icon: HelpCircle },
-                        { step: "02", title: "Understand", desc: "Analyzes constraints, ages, interests, and group dynamics", Icon: Lightbulb },
-                        { step: "03", title: "Balance", desc: "Optimizes itinerary to maximize group satisfaction", Icon: Scale },
-                        { step: "04", title: "Adapt", desc: "Adjusts in real-time when plans change during the trip", Icon: RefreshCw }
-                    ].map((item, i) => (
-                        <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-8 text-left hover:bg-white/10 transition-all hover:-translate-y-2">
-                            <div className="text-purple-400 mb-4 opacity-50">
-                                <item.Icon size={32} />
+                        
+                        <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-white/10 flex justify-between items-center">
+                            <p className="text-white/40 text-xs">© 2026 Meili. All rights reserved.</p>
+                            <div className="flex gap-4">
+                                <a href="#" className="text-white/60 hover:text-white transition-colors">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                </a>
+                                <a href="#" className="text-white/60 hover:text-white transition-colors">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                                </a>
+                                <a href="#" className="text-white/60 hover:text-white transition-colors">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                                </a>
                             </div>
-                            <h3 className="text-5xl font-bold text-fuchsia-500 mb-2">{item.step}</h3>
-                            <h4 className="text-xl font-bold mb-2">{item.title}</h4>
-                            <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                         </div>
-                    ))}
+                    </footer>
                 </div>
-            </Section>
 
-            {/* 5. Benefits - Travel Feels Right */}
-            <Section align="center">
-                <span className="text-purple-500 font-bold tracking-wider text-sm uppercase mb-4 block">The Experience</span>
-                <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
-                    Travel That <span className="text-fuchsia-500">Feels Right</span>
-                </h2>
-                <p className="text-white/60 mb-12 max-w-2xl mx-auto">
-                    For travelers: fewer conflicts, smarter days, personal moments.<br />
-                    For agents: efficiency, insights, scalability.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto w-full h-[600px]">
-                    {/* Big Card Left */}
-                    <div className="md:row-span-2 bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col justify-end text-left relative overflow-hidden group">
-                        <div className="absolute top-8 left-8 w-12 h-12 rounded-full border-2 border-purple-500 flex items-center justify-center text-purple-500">
-                            <CheckCircle size={24} />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2">No More Conflicts</h3>
-                        <p className="text-white/60 text-sm">Everyone's preferences are heard and balanced intelligently</p>
-                    </div>
-
-                    {/* Top Right */}
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col justify-end text-left">
-                        <div className="mb-auto text-white/40">
-                            <Clock size={32} />
-                        </div>
-                        <h3 className="text-xl font-bold mb-1">Smarter Days</h3>
-                        <p className="text-white/60 text-xs">Optimal timing for activities, travel, and rest</p>
-                    </div>
-
-                    {/* Top Right 2 */}
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col justify-end text-left">
-                        <div className="mb-auto text-white/40">
-                            <Zap size={32} />
-                        </div>
-                        <h3 className="text-xl font-bold mb-1">Agent Efficiency</h3>
-                        <p className="text-white/60 text-xs">Design and manage trips at scale with AI insights</p>
-                    </div>
-
-                    {/* Bottom Middle */}
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col justify-end text-left">
-                        <div className="mb-auto text-white/40">
-                            <Shield size={32} />
-                        </div>
-                        <h3 className="text-xl font-bold mb-1">Trip Confidence</h3>
-                        <p className="text-white/60 text-xs">Real-time adaptability when plans change on the fly</p>
-                    </div>
-
-                    {/* Bottom Right */}
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col justify-end text-left">
-                        <div className="mb-auto text-white/40">
-                            <Heart size={32} />
-                        </div>
-                        <h3 className="text-xl font-bold mb-1">Group Satisfaction</h3>
-                        <p className="text-white/60 text-xs">Maximize happiness across all travelers</p>
-                    </div>
-                </div>
-            </Section>
-
-            {/* Extra padding for scroll feel */}
-            <div className="h-[20vh]"></div>
-
-        </HtmlScroll>
+            </div>
+        </Html>
     );
 }
